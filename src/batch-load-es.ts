@@ -27,8 +27,7 @@ export default function batchLoadEs(items: any[]): Promise<void> {
         + result.items.length
         + " items");
       if (result.errors) {
-        console.error(result);
-        console.error("Error inserting items");
+        console.error("Error inserting items: " + result);
         throw new Error("Error while bulk inserting");
       }
     });
