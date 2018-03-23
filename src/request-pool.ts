@@ -1,3 +1,7 @@
+/**
+ * Simple round robin request pool to limit max.
+ * connections to some resource.
+ */
 export default class RequestPool {
   private currentIndex = 0;
   private pool: Promise<any>[] = [];
