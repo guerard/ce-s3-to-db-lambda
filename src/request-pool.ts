@@ -12,7 +12,9 @@ export default class RequestPool {
   public submit<O>(callable: () => Promise<O>): Promise<O> {
     return new Promise((resolve, reject) => {
       this.selectPromise().then(() => {
-        return callable().then(resolve, reject);
+        const work = callable();
+        work.then(resolve, reject);
+        return work.then(noop, noop);
       });
     });
   }
