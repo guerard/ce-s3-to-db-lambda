@@ -81,6 +81,9 @@ This app looks for gzipped, JSON arrays of PubMed documents in a bucket called `
 Don't forget to authorize the client accessing the bucket as well (e.g. inject the credentials using the standard AWS environment variables).
 
 ## Running
+First you'll need to update the Elasticsearch client configuration to match your setup (hostname, port, etc.). batch-load-es.ts is the file
+you'll need to change (ideally this info should be configurable; pull-requests welcome).
+
 To run the app, you first need to build it: `npm install && npm run lambda`
 
 Then just use the included shell script: `./run.sh <startId> <endId>` where `startId` is the first PubMed ID in the range and `endId` is the
