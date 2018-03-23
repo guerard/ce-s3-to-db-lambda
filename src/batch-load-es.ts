@@ -4,7 +4,7 @@ import RequestPool from "./request-pool";
 
 const client = new Client({
   host: 'search-ce-pubmed-2oosq3u2mm3t2vatjfrmnzb2yi.us-east-1.es.amazonaws.com:80',
-  requestTimeout: 1000 * 60 * 5,  // 5 min.
+  requestTimeout: 1000 * 60 * 2,  // 2 min.
   keepAlive: false,
 });
 
