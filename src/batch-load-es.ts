@@ -7,7 +7,7 @@ const client = new Client({
   requestTimeout: 1000 * 60,  // 1 min.
 });
 
-const requestPool = new RequestPool(16);
+const requestPool = new RequestPool(24);
 
 export default function batchLoadEs(items: any[]): Promise<void> {
   const chunks = chunk(items, 500);  // bit of a heuristic...but it works fine.
