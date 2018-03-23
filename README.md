@@ -67,6 +67,15 @@ You can use any REST client to issue an HTTP PUT to `http(s)://<hostname>:<port>
 
 In production, configure your Elasticsearch cluster to be in a VPC and use Security Groups to control access.
 
+It's also strongly suggested that you increase the interval between index refreshes by PUT'ing the following request body to `/pubmed/_settings`:
+```
+{
+	"index": {
+		"refresh_interval": "300s"
+	}
+}
+```
+
 ## Prepare S3
 This app looks for gzipped, JSON arrays of PubMed documents in a bucket called `pubmed-json`. See https://github.com/guerard/ce-pubmed-search-loader for more info.
 Don't forget to authorize the client accessing the bucket as well (e.g. inject the credentials using the standard AWS environment variables).
