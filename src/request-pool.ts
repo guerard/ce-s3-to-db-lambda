@@ -12,8 +12,8 @@ export default class RequestPool {
       if ((this.currentIndex % this.poolSize) === 0) {
         this.currentIndex = 0;
       }
-      const next = this.currentIndex++;
-      this.pool[next] = this.pool[next].then(() => {
+      const curr = this.currentIndex++;
+      this.pool[curr] = this.pool[curr].then(() => {
         return callable().then(resolve, reject);
       });
     });
