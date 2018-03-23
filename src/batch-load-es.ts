@@ -10,7 +10,7 @@ const client = new Client({
 const requestPool = new RequestPool(16);
 
 export default function batchLoadEs(items: any[]): Promise<void> {
-  const chunks = chunk(items, 500);
+  const chunks = chunk(items, 500);  // bit of a heuristic...but it works fine.
   return Promise.all(chunks.map(chunk => {
     return requestPool.submit(() => client.bulk({
       body: flatMap(chunk, item => [
