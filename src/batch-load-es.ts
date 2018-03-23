@@ -1,15 +1,18 @@
 import { Client } from "elasticsearch";
 import { chunk, flatMap } from "lodash";
+import RequestPool from "./request-pool";
 
 const client = new Client({
-  host: 'HOSTNAME GOES HERE',  // TODO: hostname goes here
-  requestTimeout: 1000 * 60 * 5 /* msec -> sec -> min -> 5min */,
+  host: 'localhost:9200',
+  requestTimeout: 1000 * 60 * 5,  // 5 min.
 });
+
+const requestPool = new RequestPool(16);
 
 export default function batchLoadEs(items: any[]): Promise<void> {
   const chunks = chunk(items, 500);
   return Promise.all(chunks.map(chunk => {
-    return client.bulk({
+    return requestPool.submit(() => client.bulk({
       body: flatMap(chunk, item => [
         {
           index: {
@@ -30,6 +33,6 @@ export default function batchLoadEs(items: any[]): Promise<void> {
         console.error("Error inserting items: " + result);
         throw new Error("Error while bulk inserting");
       }
-    });
+    }));
   })).then(values => null);
 }

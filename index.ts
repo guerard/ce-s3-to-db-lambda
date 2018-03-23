@@ -18,15 +18,16 @@ export const handler = (
     return;
   }
   const payload: S3ToDbRequest = JSON.parse(event.Records[0].Sns.Message);
-  const promises = [];
+  let done = Promise.resolve();
   for (let currentId = payload.startId; currentId <= payload.endId; currentId++) {
-    const promise = fetchPubMedJson(currentId).then((articles: any[]) => {
+    done = done.then(() => {
+      return fetchPubMedJson(currentId);
+    }).then((articles: any[]) => {
       console.log("Bulk uploading PubMed article set ID: " + currentId);
       return batchLoadEs(articles);
     });
-    promises.push(promise);
   }
-  Promise.all(promises).then(values => {
+  done.then(values => {
     console.log("All PubMed objects processed");
     callback(null, {
       isOk: true,
