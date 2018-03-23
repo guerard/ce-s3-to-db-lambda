@@ -13,6 +13,7 @@ export default class RequestPool {
         this.currentIndex = 0;
       }
       const curr = this.currentIndex++;
+      console.log(curr);
       this.pool[curr] = this.pool[curr].then(() => {
         return callable().then(resolve, reject);
       });
