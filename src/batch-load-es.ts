@@ -1,5 +1,5 @@
 import { Client } from "elasticsearch";
-import { chunk, flatMap } from "lodash";
+import { chunk, flatMap, noop } from "lodash";
 import RequestPool from "./request-pool";
 
 const client = new Client({
@@ -34,5 +34,5 @@ export default function batchLoadEs(items: any[]): Promise<void> {
         throw new Error("Error while bulk inserting");
       }
     }));
-  })).then(values => null);
+  })).then(noop);
 }

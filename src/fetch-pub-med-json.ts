@@ -1,5 +1,5 @@
 import { S3 } from "aws-sdk";
-import * as zlib from "zlib";
+import { createGunzip } from "zlib";
 import { padFn } from "./pad";
 
 const s3 = new S3();
@@ -14,7 +14,7 @@ export default function fetchPubMedJson(pubMedId: number): Promise<any[]> {
       Bucket: "pubmed-json",
       Key,
     }).createReadStream()
-      .pipe(zlib.createGunzip())
+      .pipe(createGunzip())
       .setEncoding("utf8")
       .on("data", chunk => {
         data += chunk;
