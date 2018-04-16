@@ -1,23 +1,25 @@
 {
   "name": "s3-to-db-lambda",
   "version": "1.0.0",
-  "description": "",
+  "description": "Upload PubMed JSON files from s3 to elasticsearch",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no tests set up\" && exit 1",
     "lambda": "rm -rf dist/ ; rm lambda.zip ; ./node_modules/.bin/tsc && zip -r lambda.zip ."
   },
-  "author": "",
+  "author": "Adrien Guerard",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^9.4.7",
     "@types/elasticsearch": "^5.0.22",
     "@types/lodash": "^4.14.105",
+    "@types/node": "^9.4.7",
+    "@types/pump": "^1.0.1",
     "typescript": "^2.8.1"
   },
   "dependencies": {
     "aws-sdk": "^2.211.0",
     "elasticsearch": "^14.2.1",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "pump": "^3.0.0"
   }
 }
