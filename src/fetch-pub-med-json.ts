@@ -11,10 +11,11 @@ export default function fetchPubMedJson(pubMedId: number): Promise<any[]> {
     const Key = "pubmed18n" + pad4(pubMedId) + ".json.gz";
     console.log("Fetching object '" + Key + "' from S3");
     let data = "";
-    pump(s3.getObject({
-      Bucket: "pubmed-json",
-      Key,
-    }).createReadStream(),
+    pump(
+      s3.getObject({
+        Bucket: "pubmed-json",
+        Key,
+      }).createReadStream(),
       createGunzip()
         .setEncoding("utf8")
         .on("data", chunk => {
